@@ -1,29 +1,14 @@
-{% extends 'layout.html' %} 
 {% load static %}
 
-{% block title %}
-Index
-{% endblock %}
-
-{% block css %} {% endblock %}
-
-{% block content %}
 <div class="container-fluid"> 
     <div class="mainContent container-fluid m-3 ">
         <div class="row container-fluid" style="overflow: hidden;">
             <header class="py-3 mb-4">
                 <div class="container-fluid d-flex flex-wrap justify-content-center">
                     <a class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
-                        <span class="fw-bold text-anam-secondary" style="font-size:35px">Index</span>
+                        <span class="fw-bold text-anam-secondary" style="font-size:35px">Lista</span>
                     </a>
-                    <div class="position-relative" style="width: 400px">
-                        <div class="position-absolute" style="top: 10px;left:10px">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
-                            </svg>
-                        </div>
-                        <input id="searchInput" type="search" class="form-control form-control-solid ps-10 bg-white" placeholder="Buscar pedimentos" aria-label="Search"/>
-                    </div> 
+                    
                 </div>
             </header>
         </div>
@@ -33,114 +18,33 @@ Index
             </div>
             
             <div class="col-3 d-flex align-items-center justify-content-end">
-                <button onclick="#';" type="button" class="btn btn-anam-info m-1">Exportar CSV</button>
-                <button onclick="toggleFiltro(this)"  class="btn btn-anam-primary m-1"  data-bs-toggle="collapse" data-bs-target="#filtro" aria-expanded="false"  >Ver Filtros</button> 
+                <button  class="btn btn-anam-primary m-1"  data-bs-toggle="collapse" data-bs-target="#filtro" aria-expanded="false"  >Ver Filtros</button> 
             </div>
             
             <div class="collapse"  id="filtro">
-                <div class="filter-data-1">
-                    <div class="container-fluid containerFiltro">
-                        <div class="d-flex flex-row flex-wrap">
-                            <div class="container-fluid d-flex">
-                                <div class="me-4">
-                                    <h5 class="filtro"> Aduana</h5>
-                                    <select class="form-select" style=" width: 300px; height: 40px;" >
-                                        <option selected>---</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                                <div class="me-4">
-                                    <h5 class="filtro">Pedimento</h5>
-                                    <select class="form-select" style=" width: 300px; height: 40px;">
-                                        <option selected>---</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                                <div class="me-4 ">
-                                    <h5 class="filtro">Autorización</h5>
-                                    <select class="form-select" style=" width: 300px; height: 40px;" >
-                                        <option selected>---</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                                <div class="me-4 ">
-                                    <h5 class="filtro">Tipo de Operación</h5>
-                                    <select class="form-select" style=" width: 300px; height: 40px;" >
-                                        <option selected>---</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                                <div class="me-4 ">
-                                    <h5 class="filtro">Estado</h5>
-                                    <select class="form-select" style=" width: 300px; height: 40px;" >
-                                        <option selected>---</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
+                <form id="filter-form" method="GET">
+                    <div class="container-fluid d-flex">
+                        {% for field in filter.form %}
+                            <div class="me-4 ">
+                                <label class="form-label" style="font-weight: bold;" for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+                                <div class="input-group">
+                                    {{ field }}
                                 </div>
                             </div>
-                            <div class="container-fluid d-flex">
-                                
-                                <div class="me-4 mt-4">
-                                    <h5 class="filtro">Mes</h5>
-                                    <select class="form-select" style=" width: 300px; height: 40px;">
-                                        <option selected>---</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="me-4 mt-4">
-                                    <h5 class="filtro">Año</h5>
-                                    <select class="form-select" style=" width: 300px; height: 40px;">
-                                        <option selected>---</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div>
-                            </div>
-                            <div class="d-flex flex-row-reverse col-12">
-                                <a type="button"  class="btn btn-anam-primary m-1" role="button" >Filtrar Pedimentos</a> 
-                                <button type="button" class="btn btn-anam-secondary m-1">Limpiar</button>
-                                
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
-                </div>
+                    <div class="d-flex flex-row-reverse col-12">
+                        <button type="submit" class="btn btn-anam-primary m-1">Filtrar</button> 
+                        <a href="{% url 'crud:create' %}" class="btn btn-anam-secondary m-1">Limpiar</a>
+                    </div>
+                </form>
             </div>
             <!-- TABLE -->
             <div class="container-fluid mt-10" style="background: white; border-radius:20px">
                 <div class="container-fluid d-flex flex-column p-4 pt-5 mt-3 containerFiltro" style="margin-bottom: 1.6rem;">
                     <div class="container-fluid d-flex justify-content-between">
-                        <p class="fs-3 fw-semibold" > Listas de Pedimentos</p>
-                        <div class="btn-group">
-                            <button class="btn btn-secondary btn-sm dropdown-toggle btnOrdenarTablas" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Ordenar tablas
-                            </button>
-                            <ul class="dropdown-menu" style="">
-                                <li><a class="dropdown-item" href="#">Ordenar de A a Z</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Ordenar de Z a A</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Del más antiguo al más nuevo</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Del más nuevo al más antiguo</a></li>
-                                
-                            </ul>
-                        </div>
+                        <p class="fs-3 fw-semibold" > Modelos</p>
+                        
                     </div>
                     
                     <table class="table table-striped">
@@ -187,67 +91,61 @@ Index
                     </table>
                     <br/><br/>
                     <div style="text-align: center;">
-                        <span style="color: rgba(91, 114, 130, 0.5); cursor: pointer;"><img src="{% static 'src/prev_pg.svg'%}" style=" display: inline-block;
-                            vertical-align: middle;">Primera<img src="{% static 'src/prevMini_pg.svg'%}" style=" display: inline-block;
-                            vertical-align: middle; padding-left: 10px"><span style="padding-right: 10px;">Anterior</span>  <span class="active-page text-white px-3 py-2" style="background-color: #bc955c;border-radius:8px">1</span>  <span style="padding-left: 10px;">Siguiente</span> 
-                            <img src="{% static 'src/nextMini_pg.svg'%}" style=" display: inline-block;
-                            vertical-align: middle; padding-right: 10px">Última <img src="{% static 'src/next_pg.svg'%}" style=" display: inline-block;
-                            vertical-align: middle;"></span>
+                        <span style="color: rgba(91, 114, 130, 0.5) !important; cursor: pointer;">
+                            {% if page_obj.has_previous %}
+                                <a 
+                                hx-get="{{request.path}}" 
+                                hx-target="#htmx-table"
+                                hx-vals='{"page": "1"}'
+                                hx-swap="innerHTML"
+                                >
+                                    <img src="{% static 'src/prev_pg.svg'%}" style=" display: inline-block;vertical-align: middle;">
+                                    Primera
+                                </a>
+
+                                <a 
+                                hx-get="{{request.path}}" 
+                                hx-target="#htmx-table"
+                                hx-vals='{"page": "{{page_obj.previous_page_number}}"}'
+                                >
+                                    <img src="{% static 'src/prevMini_pg.svg'%}" style=" display: inline-block;vertical-align: middle; padding-left: 10px">
+                                    <span style="padding-right: 10px;">Anterior</span>  
+                                </a>
+                            {% endif %}
+
+                            <span class="active-page text-white px-3 py-2" style="background-color: #bc955c;border-radius:8px">{{page_obj.number}}</span>
+
+                            {% if page_obj.has_next %}
+                                <a
+                                hx-get="{{request.path}}" 
+                                hx-target="#htmx-table"
+                                hx-vals='{"page": "{{page_obj.next_page_number}}"}'
+                                >
+                                    <span style="padding-left: 10px;">Siguiente</span> 
+                                    <img src="{% static 'src/nextMini_pg.svg'%}" style=" display: inline-block;vertical-align: middle; padding-right: 10px">
+                                </a>
+
+                                <a 
+                                hx-get="{{request.path}}"
+                                hx-target="#htmx-table"
+                                hx-vals='{"page": "{{page_obj.paginator.num_pages}}"}'
+                                >
+                                    Última 
+                                    <img src="{% static 'src/next_pg.svg'%}" style=" display: inline-block;vertical-align: middle;"></span>
+                                </a>
+                            {% endif %}
+
                         </div>
-                        <br/><br/>
-                        
+                        <div class="text-end">
+                            <a>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+                        </div>
+
+                        <br/><br/>                        
                     </div>
                 </div>
                 
             </div>
         </div>
-        
-        <!-- MODAL ERROR -->
-        <div id="myModal" class="modal  fade modal-error pr-5" style="z-index: 9999;  " role="dialog">
-            <div class="modal-dialog modal-dialog-top-right">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="d-inline-flex align-middle">
-                        <div class="error-svg-container">
-                            <img src="static\assets\src\cross-circle-svgrepo-com.svg" class="error-svg pe-2" style="color: red" alt="cross circle">
-                        </div>
-                        <h4 class="modal-title pt-2">¡Error!</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p id="searchResult"></p>
-                    </div>
-                    <div class="d-flex flex-row-reverse btn-cerrar btn-sm">
-                        <button type="button" style="background-color: #9f2241; color:white;" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div> 
-        
-        
-    </div>
-    
-    <!-- MODAL EXITO DESCARGA -->
-    <div class="toast-container top-0 end-0 p-3" data-bs-config='{"delay":5000}'>
-        <div id="liveToast" class="toast  successNotifJustificar" role="alert" aria-live="assertive" aria-atomic="true">
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-                </svg>
-                <strong class="me-auto" style="margin-left: 3px;">Success</strong>
-            </div>
-            <div class="toast-body">
-                El pedimento con folio <a class="folioSuccess"> FOLIO </a> fue justificado correctamente.
-            </div>
-        </div>
-    </div>
-    
 </div>
 <div>
-    
-    
-    
-    {% endblock %}
-    
-    {% block js %}{% endblock  %}
     

@@ -1,10 +1,15 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import FormView
+from .forms import MiFormulario
+
 
 def index(request):
-    return render(request, "index.html") 
+    return render(request, "ejemplo/index.html") 
 
 def indexitem(request):
-    return render(request, "indexitem.html")
+    return render(request, "ejemplo/indexitem.html")
 
-def create(request):
-    return render(request, 'create.html')
+class Create(FormView):
+    template_name = 'ejemplo/create.html'
+    form_class = MiFormulario

@@ -1,4 +1,5 @@
 {% extends 'layout.html' %} 
+{% load static %}
 {% block title %}
     Create
 {% endblock %}
@@ -9,7 +10,7 @@
 {% load crispy_forms_tags %}
 <div class="container-fluid" > 
     <div class="container-fluid m-3">
-        <a href="{% url 'crud:index' %}" type="button" class="btn btn-sm btn-secondary mb-3" style="border-radius: 20px;"> 
+        <a href="{% url 'ejemplo:index' %}" type="button" class="btn btn-sm btn-secondary mb-3" style="border-radius: 20px;"> 
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
                 </svg>&nbsp; &nbsp; Volver &nbsp;&nbsp;
@@ -27,49 +28,76 @@
             </div>
 
             <div class="d-inline-flex align-items-end justify-content-end col-4">
-                <a href="{% url 'crud:index' %}"  class="btn btn-anam-secondary m-1" > Cancelar </a>
-                <button type="submit" form="create-form" class="btn btn-anam-primary m-1">Guardar</button>
+                <button type="button" onclick="createModel()" class="btn btn-anam-primary m-1">Guardar</button>
             </div>
         </div>
     
         <div  class="container-fluid px-10 py-5" >
             <div class="p-4 pt-5" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)">
-                <form id="create-form" role="form" method="post">
+                <form id="edit-form" role="form" method="post">
                     {% csrf_token %}
+
+                    {% for field in form %}
                     
-                    <div class="row">
-                        <div class="form-group mb-3 col-6">
-                            <strong>{{ form.clave_pedimento | as_crispy_field }}</strong>
-                        </div>
-                        <div class="form-group mb-3 col-6">
-                            <strong>{{ form.tipo_operacion | as_crispy_field }}</strong>
-                        </div>
+                    <div class="form-group mb-3">
+                        <strong>{{ field | as_crispy_field }}</strong>
                     </div>
-                    <div class="row">
-                        <div class="form-group mb-3 col-6">
-                            <strong>{{ form.fecha_inicio | as_crispy_field }}</strong>
-                        </div>
-                        <div class="form-group mb-3 col-6">
-                            <strong>{{ form.fecha_fin | as_crispy_field }}</strong>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group mb-3 ">
-                            <strong>{{ form.descripcion | as_crispy_field }}</strong>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group mb-3 ">
-                            <strong>{{ form.estado | as_crispy_field }}</strong>
-                        </div>
-                    </div>
+    
+                    {% endfor %}
                 </form>
             </div>
         </div> 
+
+        <div class="container-fluid">
+            <div id="htmx-table" hx-get="{% url 'crud:index' %}" hx-trigger="load, reload-data from:body" hx-vals=''>
+                {% comment %} Load animation of loading {% endcomment %}
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>    
 </div>
 {% endblock %}
 
 {% block js %}
+    <script src="{% static 'assets/js/custom/htmx.min.js' %}"></script>
+
+    <script>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        $(() => {
+            let params = new URLSearchParams(document.location.search)
+            const body = {}
+            for(const [key, value] of params) {
+                body[key] = value;
+            }
+            
+            const hxVals = JSON.stringify(body)
+            document.querySelector("#htmx-table").setAttribute("hx-vals", hxVals)
+            htmx.trigger("#htmx-table", "reload-data", {})
+        })
+
+        function createModel() {
+            let form = document.querySelector("#edit-form")
+            fetch(
+                "",
+                {
+                    method: 'POST',
+                    headers: {'X-CSRFToken': csrftoken, "Accept": "application/json"},
+                    mode: 'same-origin',
+                    body: new FormData(form)
+                }
+            ).then(response => response.json())
+            .then(response => {
+                htmx.trigger("#htmx-table", "reload-data", {});
+            })
+            .catch(error => {
+                
+            })
+        }
+    </script>
 
 {% endblock  %}
