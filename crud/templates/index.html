@@ -143,9 +143,273 @@
                         <br/><br/>                        
                     </div>
                 </div>
-                
+                <div class="container-fluid mt-10" style="background: white; border-radius: 20px;">
+                    <div class="row d-flex mt-5">
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h2>Barras</h2>
+                            </div>
+                            <div>
+                                <canvas id="kt_chartjs_1" class="mh-400px"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h2>Líneas</h2>
+                            </div>
+                            <div>
+                                <canvas id="kt_chartjs_2" class="mh-400px"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h2>Pie</h2>
+                            </div>
+                            <div>
+                                <canvas id="kt_chartjs_3" class="mh-400px"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h2>Dona</h2>
+                            </div>
+                            <div>
+                                <canvas id="kt_chartjs_4" class="mh-400px"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- MODAL ERROR -->
+        <div id="myModal" class="modal  fade modal-error pr-5" style="z-index: 9999;  " role="dialog">
+            <div class="modal-dialog modal-dialog-top-right">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="d-inline-flex align-middle">
+                        <div class="error-svg-container">
+                            <img src="static\assets\src\cross-circle-svgrepo-com.svg" class="error-svg pe-2" style="color: red" alt="cross circle">
+                        </div>
+                        <h4 class="modal-title pt-2">¡Error!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="searchResult"></p>
+                    </div>
+                    <div class="d-flex flex-row-reverse btn-cerrar btn-sm">
+                        <button type="button" style="background-color: #9f2241; color:white;" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        
+        
+    </div>
+    
+    <!-- MODAL EXITO DESCARGA -->
+    <div class="toast-container top-0 end-0 p-3" data-bs-config='{"delay":5000}'>
+        <div id="liveToast" class="toast  successNotifJustificar" role="alert" aria-live="assertive" aria-atomic="true">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                </svg>
+                <strong class="me-auto" style="margin-left: 3px;">Success</strong>
+            </div>
+            <div class="toast-body">
+                El pedimento con folio <a class="folioSuccess"> FOLIO </a> fue justificado correctamente.
             </div>
         </div>
-</div>
+    </div>
+    
+    </div>
 <div>
     
+{% endblock %}
+
+{% block js %}
+
+    <script>
+        var ctx = document.getElementById('kt_chartjs_1');
+
+        // Define colors
+        var primaryColor = KTUtil.getCssVariableValue('--kt-primary');
+        var dangerColor = KTUtil.getCssVariableValue('--kt-danger');
+        var successColor = KTUtil.getCssVariableValue('--kt-success');
+
+        // Define fonts
+        var fontFamily = KTUtil.getCssVariableValue('--bs-font-sans-serif');
+
+        // Los labels de los elementos, debe ser sí o sí un arreglo
+        const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+        // La información de la gráfica
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Días del mes',
+                data: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+                backgroundColor: [
+                'rgb(255, 200, 200)',
+                'rgb(200, 255, 200)',
+                'rgb(200, 200, 255)',
+                'rgb(255, 255, 200)',
+                'rgb(255, 200, 100)',
+                'rgb(255, 175, 200)',
+                'rgb(200, 175, 255)',
+                'rgb(175, 255, 175)',
+                'rgb(175, 255, 255)',
+                'rgb(255, 200, 150)',
+                'rgb(255, 150, 200)',
+                'rgb(150, 255, 255)'
+                ]
+            }]
+        };
+
+        // Chart config
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                plugins: {
+                    title: {
+                        display: false,
+                    }
+                },
+                responsive: true,
+                interaction: {
+                    intersect: false,
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                    },
+                    y: {
+                        stacked: true
+                    }
+                }
+            },
+            defaults:{
+                global: {
+                    defaultFont: fontFamily
+                }
+            }
+        };
+
+        // Init ChartJS -- for more info, please visit: https://www.chartjs.org/docs/latest/
+        var myChart = new Chart(ctx, config);
+    </script>
+
+    <script>
+
+        var ctx2 = document.getElementById('kt_chartjs_2');
+
+        const labels2 = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+        const data2 = {
+            labels: labels2,
+            // Los datasets son para gráfica, si se quisieran graficar más elementos
+            // dentro del mismo canvas (como en este caso, que son 2 líneas), se hace un
+            // dataset por cada línea.
+            datasets: [
+                {
+                    label: 'Personas buenas',
+                    data: [65, 59, 80, 81, 56, 55, 40, 60, 70, 47, 66, 74],
+                    fill: false,
+                    borderColor: '#235b4e',
+                    tension: 0.1
+                },
+                {
+                    label: 'Personas malas',
+                    data: [60, 40, 55, 28, 39, 1, 15, 30, 35, 42, 12, 24],
+                    fill: false,
+                    borderColor: '#9f2241',
+                    tension: 0.1
+                }
+            ]
+        };
+
+        const config2 = {
+            type: 'line',
+            data: data2,
+        };
+
+        var myChart = new Chart(ctx2, config2);
+
+    </script>
+
+    <script>
+
+        var ctx3 = document.getElementById('kt_chartjs_3');
+
+        const labels3 = ['Aduana 1', 'Aduana 2', 'Aduana 3', 'Aduana 4', 'Aduana 5', 'Aduana 6', 'Aduana 7', 'Aduana 8', 'Aduana 9', 'Aduana 10', 'Aduana 11', 'Aduana 12'];
+
+        const data3 = {
+            labels: labels3,
+            datasets: [
+                {
+                    data: [100, 80, 20, 50, 45, 70, 25, 10, 40, 90, 69, 1],
+                }
+            ]
+        };
+
+        const config3 = {
+            type: 'pie',
+            data: data3,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        position: 'right',
+                        text: 'Aduanas'
+                    },
+                    legend: {
+                        display: true,
+                        position: 'right',
+                    }
+                }
+            }
+        };
+
+        var myChart = new Chart(ctx3, config3);
+
+    </script>
+
+    <script>
+
+        var ctx3 = document.getElementById('kt_chartjs_4');
+
+        const data4 = {
+            labels: [
+                'Rojo',
+                'Verde',
+                'Amarillo',
+                'Gris',
+                'Azul'
+            ],
+            datasets: [{
+                data: [11, 16, 7, 3, 14],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(75, 192, 192)',
+                    'rgb(255, 205, 86)',
+                    'rgb(201, 203, 207)',
+                    'rgb(54, 162, 235)'
+                ]
+            }]
+        };
+        const config4 = {
+            type: 'doughnut',
+            data: data4,
+            options: {
+                cutout: 110
+            }
+        };
+
+        var myChart = new Chart(ctx3, config4);
+    </script>
+
+{% endblock  %}
