@@ -1,0 +1,35 @@
+{% load static %}
+
+{% block css %}
+
+{% endblock %}
+
+<div class="modal-dialog modal-md" role="document" id="delete-modal">
+    <div class="modal-content" >
+        <div class="modal-header">
+            <h4 class="modal-title">Eliminar modelo</h4>
+        </div>
+        <form action="{% url 'crud:delete' pk %}" method="POST">
+
+            <div class="modal-body">
+
+                {% csrf_token %}
+            
+                    <div>
+                        <p style="font-size: 18px;color: rgb(58,59,69);">
+                            Si eliminas este elemento ya no podrás recuperarlo.
+                        </p>
+                    </div>
+
+            </div>
+        
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Cancelar</button>
+
+                <button class="btn btn-danger" type="button" onclick="submit()">Eliminar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% block js %}{% endblock %}

@@ -29,11 +29,19 @@ class Create(CreateView):
             return JsonResponse({'success': True})
         else:
             return JsonResponse({'sucess': False, 'errors': form.errors})
-        
-
 
 class Edit(UpdateView):
     model = CRUDModel
     template_name = 'edit.html'
     form_class = CRUDForm
     success_url = reverse_lazy('crud:create')
+
+class Delete(DeleteView):
+    model = CRUDModel
+    template_name = 'delete.html'
+    success_url = reverse_lazy('crud:create')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["pk"] = self.kwargs['pk']
+        return context

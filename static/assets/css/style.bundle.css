@@ -110,7 +110,7 @@ body {
     --bs-btn-disabled-color: #ffffff;
     --bs-btn-disabled-bg: #f4ede0;
     --bs-btn-disabled-border-color: #f4ede0;
-    }
+}
 
 .text-anam-primary {
     color: #235b4e !important;
@@ -122,4 +122,8 @@ body {
 
 .text-anam-info {
     color: #bc955c !important;
+}
+
+.radio-group div {
+    margin-bottom: 10px;
 }

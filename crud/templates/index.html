@@ -80,7 +80,7 @@
                                         <a href="{% url 'crud:update' model.id %}" class="btn btn-outline btn-outline-secondary btn-active-light-secondary" style="border-radius: 100px; border-width: 2px;" href="#">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button" class="btn btn-outline btn-outline-danger btn-active-danger" id="botonDescarga" data-bs-toggle="modal" data-bs-target="#modalD" style="border-radius: 100px; border-width: 2px;">
+                                        <button type="button" class="btn btn-outline btn-outline-danger btn-active-danger" data-bs-target="#delete-modal" onclick="openDeleteModal('{% url 'crud:delete' model.id %}')" style="border-radius: 100px; border-width: 2px;">
                                             <i class="fas fa-trash"></i>
                                             
                                         </button>
@@ -147,5 +147,4 @@
             </div>
         </div>
 </div>
-<div>
     

@@ -59,6 +59,10 @@
             </div>
         </div>
     </div>    
+
+    <div class="modal fade" id="delete-modal" role="dialog">
+
+    </div>
 </div>
 {% endblock %}
 
@@ -97,6 +101,13 @@
             .catch(error => {
                 
             })
+        }
+
+        function openDeleteModal(url){
+            $('#delete-modal').load(url, function(){
+                $(this).modal('show');
+            })
+            console.log(url)
         }
     </script>
 

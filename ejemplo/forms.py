@@ -1,7 +1,7 @@
 from django import forms
 
 class MiFormulario(forms.Form):
-    opciones_operacion = [
+    opciones = [
         ('opcion1', 'Opción 1'),
         ('opcion2', 'Opción 2'),
         ('opcion3', 'Opción 3'),
@@ -13,7 +13,7 @@ class MiFormulario(forms.Form):
         widget=forms.TextInput(attrs={'placeholder': 'Clave pedimento'})
     )
     tipo_operacion = forms.ChoiceField(
-        choices=opciones_operacion,
+        choices=opciones,
         widget=forms.Select(),
         label="Tipo de operación"
     )
@@ -29,8 +29,17 @@ class MiFormulario(forms.Form):
         label="Descripción",
         widget=forms.Textarea(attrs={'placeholder': 'Descripción'})
     )
+
+    # Select 2
     estado = forms.ChoiceField(
-        choices=opciones_operacion,
-        widget=forms.Select(),
+        choices=opciones,
+        widget=forms.Select(attrs={"data-control": "select2", "data-placeholder": "Elige un estado"}),
         label="Estado"
+    )
+
+    checkbox = forms.BooleanField(required=False)
+
+    radio = forms.ChoiceField(
+        widget= forms.RadioSelect(),
+        choices=opciones, 
     )
