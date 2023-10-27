@@ -12,7 +12,7 @@ Index
     <div class="mainContent container-fluid m-3 ">
         <div class="row container-fluid" style="overflow: hidden;">
             <header class="py-3 mb-4">
-                <div class="container-fluid d-flex flex-wrap justify-content-center">
+                <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center">
                     <a class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
                         <span class="fw-bold text-anam-secondary" style="font-size:35px">Index</span>
                     </a>
@@ -24,6 +24,7 @@ Index
                         </div>
                         <input id="searchInput" type="search" class="form-control form-control-solid ps-10 bg-white" placeholder="Buscar pedimentos" aria-label="Search"/>
                     </div> 
+                    <a href="{% url 'ejemplo:create' %}" class="btn btn-anam-primary ms-10">Nuevo</a>
                 </div>
             </header>
         </div>
@@ -141,7 +142,7 @@ Index
                 <div class="container-fluid d-flex flex-column p-4 pt-5 mt-3 containerFiltro" style="margin-bottom: 1.6rem;">
                     <div class="container-fluid d-flex justify-content-between">
                         <p class="fs-3 fw-semibold" > Listas de Pedimentos</p>
-                        <div class="btn-group">
+                        <div class="btn-group mb-2">
                             <button class="btn btn-secondary btn-sm dropdown-toggle btnOrdenarTablas" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Ordenar tablas
                             </button>

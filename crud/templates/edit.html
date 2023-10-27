@@ -9,7 +9,7 @@
 {% load crispy_forms_tags %}
 <div class="container-fluid" > 
     <div class="container-fluid m-3">
-        <a href="{% url 'crud:index' %}" type="button" class="btn btn-sm btn-secondary mb-3" style="border-radius: 20px;"> 
+        <a href="{% url 'crud:create' %}" type="button" class="btn btn-sm btn-secondary mb-3" style="border-radius: 20px;"> 
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
                 </svg>&nbsp; &nbsp; Volver &nbsp;&nbsp;
@@ -27,7 +27,7 @@
             </div>
 
             <div class="d-inline-flex align-items-end justify-content-end col-4">
-                <a href="{% url 'crud:index' %}"  class="btn btn-anam-secondary m-1" > Cancelar </a>
+                <a href="{% url 'crud:create' %}"  class="btn btn-anam-secondary m-1" > Cancelar </a>
                 <button type="submit" form="edit-form" class="btn btn-anam-primary m-1">Guardar</button>
             </div>
         </div>
