@@ -1,9 +1,11 @@
-from django.shortcuts import render
+import time
+
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.views.generic import FormView
-from .forms import MiFormulario
 
+from .forms import MiFormulario, FormularioLoading
 
 def index(request):
     return render(request, "ejemplo/index.html") 
@@ -24,3 +26,15 @@ class Create(FormView):
             return JsonResponse({'data': form.data})
         else:
             return JsonResponse({'sucess': False, 'errors': form.errors})
+
+class CreateLoading(FormView):
+    template_name = 'ejemplo/create_loading.html'
+    form_class = FormularioLoading
+
+    def post(self, request):
+        form = self.form_class(data=request.POST)
+        if form.is_valid():
+            # Puse un sleep para fines de mostrar el alert con el elemento de loading
+            time.sleep(5)
+            return redirect(reverse_lazy('ejemplo:index'))
+        return render(request, self.template_name, context={'form':form})

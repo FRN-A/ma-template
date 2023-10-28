@@ -43,3 +43,6 @@ class MiFormulario(forms.Form):
         widget= forms.RadioSelect(),
         choices=opciones, 
     )
+
+class FormularioLoading(forms.Form):
+    elemento1 = forms.CharField(max_length=255, label="Elemento 1", widget=forms.TextInput(attrs={'placeholder':'Elemento 1'}))
