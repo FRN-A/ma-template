@@ -1,5 +1,5 @@
 import time
-
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.http import JsonResponse
@@ -22,7 +22,6 @@ class Create(FormView):
         form = self.get_form(form_class)
         
         if form.is_valid():
-            
             return JsonResponse({'data': form.data})
         else:
             return JsonResponse({'sucess': False, 'errors': form.errors})
@@ -36,5 +35,7 @@ class CreateLoading(FormView):
         if form.is_valid():
             # Puse un sleep para fines de mostrar el alert con el elemento de loading
             time.sleep(5)
+            messages.success(request,'El registro se realizó con éxito.')
             return redirect(reverse_lazy('ejemplo:index'))
+        messages.error(request,'No se pudo realizar el registro.')
         return render(request, self.template_name, context={'form':form})
