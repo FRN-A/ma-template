@@ -35,6 +35,16 @@ class CreateLoading(FormView):
         if form.is_valid():
             # Puse un sleep para fines de mostrar el alert con el elemento de loading
             time.sleep(5)
+            return redirect(reverse_lazy('ejemplo:index'))
+        return render(request, self.template_name, context={'form':form})
+    
+class CreateSweatalert(FormView):
+    template_name = 'ejemplo/create_sweatalert.html'
+    form_class = FormularioLoading
+
+    def post(self, request):
+        form = self.form_class(data=request.POST)
+        if form.is_valid():
             messages.success(request,'El registro se realizó con éxito.')
             return redirect(reverse_lazy('ejemplo:index'))
         messages.error(request,'No se pudo realizar el registro.')

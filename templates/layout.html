@@ -90,6 +90,9 @@
 	<!--begin::Global Javascript(mandatory)-->
 	<script src="{% static '/assets/plugins/global/plugins.bundle.js'%}"></script>
 	<script src="{% static '/assets/js/scripts.bundle.js'%}"></script>
+	/*
+	Ejemplo de como se renderizan en el front los mensajes de django
+	*/
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	{% if messages %}
 		{% for message in messages %}
