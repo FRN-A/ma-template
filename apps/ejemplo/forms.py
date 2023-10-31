@@ -6,7 +6,7 @@ class MiFormulario(forms.Form):
         ('opcion2', 'Opción 2'),
         ('opcion3', 'Opción 3'),
     ]
-     
+    
     clave_pedimento = forms.CharField(
         max_length=100,
         label="Clave de pedimento",
