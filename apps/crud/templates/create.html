@@ -50,7 +50,6 @@
 
         <div class="container-fluid">
             <div id="htmx-table" hx-get="{% url 'crud:index' %}" hx-trigger="load, reload-data from:body" hx-vals=''>
-                {% comment %} Load animation of loading {% endcomment %}
                 <div class="d-flex justify-content-center">
                     <div class="spinner-border" role="status">
                         <span class="visually-hidden">Cargando...</span>

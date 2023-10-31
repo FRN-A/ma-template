@@ -51,5 +51,22 @@
 
 {% block js %}
 
+<script>
+    // Este es un ejemplo de crud con loading. Lo más importante son los componentes
+    // "allowOutsideClick" que hace que no se pueda quitar el alert y el método didOpen.
+    // Este método lo que hace es ejecutar código cuando se muestre el modal. Para el caso
+    // del ejemplo, nada más el método showLoading(). 
+    let form = document.getElementById('create-form').addEventListener('submit', (event) => {
+        Swal.fire({
+            title: '¡Espere un momento!',
+            text: 'Se está cargando la información.',
+            icon: 'info',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            },
+        })
+    });
+</script>
 
 {% endblock  %}
